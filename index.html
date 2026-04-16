@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EPAS – Școli Ambasador ale Parlamentului European</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --eu-blue: #003399;
+      --eu-blue-dark: #001f6b;
+      --eu-gold: #E8D48B;
+      --eu-gold-dim: #d4bc6e;
+      --white: #F5E6C8;
+      --heading-color: #C8DEFF;
+      --gray-light: rgba(255,255,255,0.08);
+      --gray-border: rgba(255,255,255,0.15);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+      background-image: url('parliament.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: var(--white);
+      line-height: 1.7;
+    }
+
+    /* ─── HERO ─────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      display: none;
+    }
+
+    .hero-video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      z-index: 0;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(0,0,0,0.15) 0%,
+        rgba(5,8,43,0.45) 100%
+      );
+      z-index: 1;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 860px;
+    }
+
+    .stars {
+      font-size: 1.6rem;
+      letter-spacing: 0.35em;
+      color: var(--eu-gold);
+      margin-bottom: 1.6rem;
+      display: block;
+      text-shadow: 0 0 20px rgba(255,204,0,0.6);
+      transition: letter-spacing 0.4s ease, text-shadow 0.4s ease;
+      cursor: default;
+    }
+    .stars:hover {
+      letter-spacing: 0.5em;
+      text-shadow: 0 0 40px rgba(255,204,0,0.9);
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(255,204,0,0.15);
+      border: 1px solid var(--eu-gold);
+      color: var(--eu-gold);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 0.35rem 1.1rem;
+      border-radius: 100px;
+      margin-bottom: 1.4rem;
+      transition: background 0.25s, box-shadow 0.25s;
+      cursor: default;
+    }
+    .badge:hover {
+      background: rgba(255,204,0,0.28);
+      box-shadow: 0 0 18px rgba(255,204,0,0.35);
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 6vw, 4rem);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
+      color: var(--heading-color);
+      text-shadow: 0 2px 24px rgba(0,0,0,0.7), 0 0 60px rgba(0,20,80,0.5);
+    }
+
+    .hero h1 span {
+      color: var(--eu-gold);
+      text-shadow: 0 0 30px rgba(255,204,0,0.5);
+      transition: text-shadow 0.3s;
+    }
+    .hero h1 span:hover {
+      text-shadow: 0 0 50px rgba(255,204,0,0.9), 0 2px 24px rgba(0,0,0,0.7);
+    }
+
+    .hero .subtitle {
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      color: rgba(255,255,255,0.85);
+      margin-bottom: 0.6rem;
+      text-shadow: 0 1px 12px rgba(0,0,0,0.8);
+    }
+
+    .school-name {
+      font-size: clamp(1.3rem, 3vw, 1.9rem);
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 1.4rem;
+      text-shadow: 0 0 30px rgba(255,255,255,0.35), 0 2px 16px rgba(0,0,0,0.95);
+      border-top: 1px solid rgba(255,255,255,0.25);
+      border-bottom: 1px solid rgba(255,255,255,0.25);
+      padding: 0.7rem 2rem;
+      display: inline-block;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      background: var(--eu-gold);
+      color: #1a1200;
+      font-size: 0.95rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      padding: 0.85rem 2.2rem;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.25s, box-shadow 0.25s;
+      box-shadow: 0 4px 20px rgba(255,204,0,0.3);
+    }
+    .cta-btn:hover {
+      background: var(--eu-gold-dim);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 32px rgba(255,204,0,0.55);
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2rem;
+      z-index: 2;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.35);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .scroll-hint::after {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 40px;
+      background: rgba(255,255,255,0.2);
+    }
+
+    /* ─── SECTIONS ──────────────────────────────────────────── */
+    section {
+      padding: 5rem 1.5rem;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--eu-gold);
+      margin-bottom: 0.6rem;
+    }
+
+    h2 {
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      font-weight: 800;
+      margin-bottom: 1.2rem;
+      line-height: 1.2;
+      color: var(--heading-color);
+    }
+
+    .lead {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.75);
+      max-width: 680px;
+    }
+
+    /* ─── DESPRE ────────────────────────────────────────────── */
+    #despre {
+      background: rgba(5,8,43,0.5);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+      margin-top: 3rem;
+    }
+
+    @media (max-width: 700px) {
+      .about-grid { grid-template-columns: 1fr; }
+    }
+
+    .about-text p {
+      color: rgba(255,255,255,0.72);
+      margin-bottom: 1rem;
+    }
+
+    .about-visual {
+      background: var(--gray-light);
+      border: 1px solid var(--gray-border);
+      border-radius: 16px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+    }
+
+    .eu-flag-svg {
+      width: 120px;
+      margin: 0 auto 1.2rem;
+      display: block;
+    }
+
+    .about-visual p {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.5);
+      font-style: italic;
+    }
+
+    /* ─── ACTIVITĂȚI ────────────────────────────────────────── */
+    #activitati {
+      background: rgba(3,6,31,0.4);
+    }
+
+    .activities-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.4rem;
+      margin-top: 2.8rem;
+    }
+
+    .activity-card {
+      background: var(--gray-light);
+      border: 1px solid var(--gray-border);
+      border-radius: 14px;
+      padding: 1.6rem 1.4rem;
+      transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s, background 0.25s;
+    }
+    .activity-card:hover {
+      border-color: var(--eu-gold);
+      transform: translateY(-5px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,204,0,0.2);
+      background: rgba(255,255,255,0.1);
+    }
+    .activity-card:hover .activity-icon {
+      transform: scale(1.2);
+    }
+    .activity-icon {
+      font-size: 2rem;
+      margin-bottom: 0.8rem;
+      display: block;
+      transition: transform 0.25s;
+    }
+
+    .activity-icon {
+      font-size: 2rem;
+      margin-bottom: 0.8rem;
+      display: block;
+    }
+
+    .activity-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+      color: var(--white);
+    }
+
+    .activity-card p {
+      font-size: 0.87rem;
+      color: rgba(255,255,255,0.58);
+    }
+
+    /* ─── COMPETENȚE ────────────────────────────────────────── */
+    #competente {
+      background: rgba(5,8,43,0.5);
+    }
+
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .skill-tag {
+      background: rgba(0,51,153,0.35);
+      border: 1px solid rgba(0,51,153,0.7);
+      color: rgba(255,255,255,0.85);
+      font-size: 0.9rem;
+      font-weight: 600;
+      padding: 0.55rem 1.2rem;
+      border-radius: 100px;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: background 0.25s, border-color 0.25s, transform 0.25s, box-shadow 0.25s;
+      cursor: default;
+    }
+    .skill-tag:hover {
+      background: rgba(0,51,153,0.65);
+      border-color: var(--eu-gold);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(0,51,153,0.4);
+    }
+
+    .skill-tag::before {
+      content: '✦';
+      color: var(--eu-gold);
+      font-size: 0.65rem;
+    }
+
+    /* ─── MEMBRI ────────────────────────────────────────────── */
+    #membri {
+      background: rgba(3,6,31,0.4);
+    }
+
+    .membri-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      margin-top: 2.8rem;
+    }
+
+    @media (max-width: 600px) {
+      .membri-grid { grid-template-columns: 1fr; }
+    }
+
+    .membri-group {
+      border-radius: 14px;
+      padding: 2rem 1.8rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .membri-group.seniori {
+      background: linear-gradient(135deg, rgba(0,51,153,0.55) 0%, rgba(0,30,100,0.7) 100%);
+      border: 1px solid rgba(200,222,255,0.3);
+      box-shadow: inset 0 1px 0 rgba(200,222,255,0.15);
+    }
+
+    .membri-group.juniori {
+      background: linear-gradient(135deg, rgba(30,130,255,0.5) 0%, rgba(0,100,220,0.6) 100%);
+      border: 1px solid rgba(180,220,255,0.4);
+      box-shadow: inset 0 1px 0 rgba(180,220,255,0.2);
+    }
+
+    .membri-group::before {
+      content: '';
+      position: absolute;
+      top: -40px;
+      right: -40px;
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      opacity: 0.08;
+    }
+
+    .membri-group.seniori::before {
+      background: #C8DEFF;
+    }
+
+    .membri-group.juniori::before {
+      background: #96C8FF;
+    }
+
+    .membri-group-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--eu-gold);
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .membri-group-title::before {
+      content: '';
+      display: inline-block;
+      width: 24px;
+      height: 2px;
+      background: var(--eu-gold);
+      border-radius: 2px;
+    }
+
+    .membri-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+
+    .membri-list li {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--white);
+      padding: 0.45rem 0.8rem;
+      border-radius: 6px;
+      transition: background 0.2s, padding-left 0.2s;
+      cursor: default;
+    }
+
+    .membri-list li:hover {
+      background: rgba(255,255,255,0.07);
+      padding-left: 1.2rem;
+    }
+
+    .coordinator-tag {
+      font-size: 0.7rem;
+      background: rgba(255,165,0,0.2);
+      border: 1px solid var(--eu-gold);
+      color: var(--eu-gold);
+      padding: 0.1rem 0.5rem;
+      border-radius: 4px;
+      margin-left: 0.4rem;
+      vertical-align: middle;
+    }
+
+    /* ─── FOOTER ────────────────────────────────────────────── */
+    footer {
+      background: rgba(3,6,31,0.55);
+      border-top: 1px solid var(--gray-border);
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+    }
+
+    footer .stars-sm {
+      font-size: 1.1rem;
+      letter-spacing: 0.3em;
+      color: var(--eu-gold);
+      margin-bottom: 0.8rem;
+      display: block;
+    }
+
+    footer p {
+      font-size: 0.83rem;
+      color: rgba(255,255,255,0.35);
+    }
+
+    footer strong { color: rgba(255,255,255,0.6); }
+  </style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <video class="hero-video" autoplay muted loop playsinline>
+      <source src="flag.mp4" type="video/mp4">
+    </video>
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+      <p class="school-name">Colegiul Național „Mihai Viteazul"</p>
+      <span class="stars">★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★</span>
+      <span class="badge">European Parliament Ambassador Schools</span>
+      <h1>Școli <span>Ambasador</span><br>ale Parlamentului European</h1>
+      <p class="subtitle">Programul EPAS — cetățeni europeni activi, informați, implicați</p>
+      <a href="#despre" class="cta-btn">Descoperă programul</a>
+    </div>
+
+    <div class="scroll-hint">Scroll</div>
+  </section>
+
+  <!-- DESPRE -->
+  <section id="despre">
+    <div class="container">
+      <p class="section-label">Despre program</p>
+      <h2>Ce este EPAS?</h2>
+
+      <div class="about-grid">
+        <div class="about-text">
+          <p>
+            <strong>European Parliament Ambassador Schools Programme (EPAS)</strong> este o
+            inițiativă a Parlamentului European care îi aduce pe elevi mai aproape de valorile
+            europene și le oferă o înțelegere clară a modului în care funcționează
+            Uniunea Europeană.
+          </p>
+          <p>
+            Prin intermediul acestui program, tinerii sunt încurajați să devină
+            cetățeni activi, informați și implicați în viața democratică.
+          </p>
+          <p>
+            În România, programul este implementat de <strong>Biroul de Legătură al
+            Parlamentului European în România</strong> și este susținut de
+            Ministerul Educației și Cercetării.
+          </p>
+          <p>
+            Începând din acest an, <strong>Colegiul Național „Mihai Viteazul"</strong> are
+            statutul de <em>școală candidat</em> în cadrul acestui proiect — o oportunitate
+            valoroasă pentru elevi și profesori de a participa la activități educaționale
+            cu dimensiune europeană.
+          </p>
+        </div>
+
+        <div class="about-visual">
+          <!-- EU Flag SVG inline -->
+          <svg class="eu-flag-svg" viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg">
+            <rect width="900" height="600" fill="#003399"/>
+            <g fill="#FFCC00">
+              <!-- 12 stars arranged in a circle -->
+              <polygon points="450,100 456,118 475,118 460,130 466,148 450,137 434,148 440,130 425,118 444,118" transform="rotate(0,450,300)"/>
+              <polygon points="450,100 456,118 475,118 460,130 466,148 450,137 434,148 440,130 425,118 444,118" transform="rotate(30,450,300)"/>
+              <polygon points="450,100 456,118 475,118 460,130 466,148 450,137 434,148 440,130 425,118 444,118" transform="rotate(60,450,300)"/>
+              <polygon points="450,100 456,118 475,118 460,130 466,148 450,137 434,148 440,130 425,118 444,118" transform="rotate(90,450,300)"/>
+              <polygon points="450,100 456,118 475,118 460,130 466,148 450,137 434,148 440,130 425,118 444,118" transform="rotate(120,450,300)"/>
+              <polygon points="450,100 456,118 475,118 460,130 466,148 450,137 434,148 440,130 425,118 444,118" transform="rotate(150,450,300)"/>
+              <polygon points="450,100 456,118 475,118 460,130 466,148 450,137 434,148 440,130 425,118 444,118" transform="rotate(180,450,300)"/>
+              <polygon points="450,100 456,118 475,118 460,130 466,148 450,137 434,148 440,130 425,118 444,118" transform="rotate(210,450,300)"/>
+              <polygon points="450,100 456,118 475,118 460,130 466,148 450,137 434,148 440,130 425,118 444,118" transform="rotate(240,450,300)"/>
+              <polygon points="450,100 456,118 475,118 460,130 466,148 450,137 434,148 440,130 425,118 444,118" transform="rotate(270,450,300)"/>
+              <polygon points="450,100 456,118 475,118 460,130 466,148 450,137 434,148 440,130 425,118 444,118" transform="rotate(300,450,300)"/>
+              <polygon points="450,100 456,118 475,118 460,130 166,148 450,137 434,148 440,130 425,118 444,118" transform="rotate(330,450,300)"/>
+            </g>
+          </svg>
+          <p>Parlamentul European<br>Biroul de Legătură în România</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACTIVITĂȚI -->
+  <section id="activitati">
+    <div class="container">
+      <p class="section-label">Ce facem</p>
+      <h2>Activitățile programului</h2>
+      <p class="lead">Prin EPAS, școala organizează o serie de activități variate care implică întreaga comunitate școlară.</p>
+
+      <div class="activities-grid">
+        <div class="activity-card">
+          <span class="activity-icon">🏛️</span>
+          <h3>Lecții și dezbateri</h3>
+          <p>Organizăm lecții interactive și dezbateri despre instituțiile europene și procesul decizional al UE.</p>
+        </div>
+        <div class="activity-card">
+          <span class="activity-icon">📰</span>
+          <h3>Materiale informative</h3>
+          <p>Realizăm materiale educaționale despre valorile și funcționarea Uniunii Europene.</p>
+        </div>
+        <div class="activity-card">
+          <span class="activity-icon">🇪🇺</span>
+          <h3>Ziua Europei</h3>
+          <p>Marcăm anual Ziua Europei (9 mai) prin evenimente dedicate cetățeniei europene.</p>
+        </div>
+        <div class="activity-card">
+          <span class="activity-icon">🎭</span>
+          <h3>Simulări și jocuri de rol</h3>
+          <p>Elevii participă la simulări ale procesului decizional european — sesiuni de Parlamentul European.</p>
+        </div>
+        <div class="activity-card">
+          <span class="activity-icon">📍</span>
+          <h3>Punct de informare european</h3>
+          <p>Școala amenajează un spațiu dedicat informației europene accesibil tuturor elevilor.</p>
+        </div>
+        <div class="activity-card">
+          <span class="activity-icon">🤝</span>
+          <h3>Colaborare internațională</h3>
+          <p>Colaborăm cu alte școli din rețeaua EPAS din toată Europa pentru schimburi de bune practici.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPETENȚE -->
+  <section id="competente">
+    <div class="container">
+      <p class="section-label">Ce dobândim</p>
+      <h2>Competențe esențiale</h2>
+      <p class="lead">Prin participarea la EPAS, elevii își dezvoltă abilități valoroase pentru viața de cetățean european activ.</p>
+
+      <div class="skills-list">
+        <span class="skill-tag">Gândire critică</span>
+        <span class="skill-tag">Comunicare</span>
+        <span class="skill-tag">Lucru în echipă</span>
+        <span class="skill-tag">Spirit civic</span>
+        <span class="skill-tag">Cetățenie europeană</span>
+        <span class="skill-tag">Educație democratică</span>
+        <span class="skill-tag">Cunoașterea instituțiilor UE</span>
+        <span class="skill-tag">Responsabilitate socială</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- MEMBRI -->
+  <section id="membri">
+    <div class="container">
+      <p class="section-label">Echipa</p>
+      <h2>Membrii EPAS</h2>
+      <p class="lead">Ambasadorii Colegiului Național „Mihai Viteazul" în programul EPAS.</p>
+
+      <div class="membri-grid">
+        <div class="membri-group seniori">
+          <p class="membri-group-title">Ambasadori seniori</p>
+          <ul class="membri-list">
+            <li>Dumitriu Liana</li>
+            <li>Korpos Diana</li>
+            <li>Pop Daniela Maria</li>
+            <li>Russu Gabriela Aurora</li>
+            <li>Incze Daniela <span class="coordinator-tag">coordinator</span></li>
+          </ul>
+        </div>
+
+        <div class="membri-group juniori">
+          <p class="membri-group-title">Ambasadori juniori</p>
+          <ul class="membri-list">
+            <li>Amaxinoaei Bianca Ioana</li>
+            <li>Andruș Matei</li>
+            <li>Baciu Miruna</li>
+            <li>Boșcănean Alexandra</li>
+            <li>Ceuşan Tudor Cătălin</li>
+            <li>Dacso Timea Renata</li>
+            <li>Diniş Andrei Denis</li>
+            <li>Giurgiu Ilinca</li>
+            <li>Iosof Raluca</li>
+            <li>Mînican Iulia</li>
+            <li>Moldovan Ana</li>
+            <li>Oros Luca Edoardo</li>
+            <li>Potora Alecsia Maria</li>
+            <li>Rus Adelina Maria</li>
+            <li>Trifa Sorana</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <span class="stars-sm">★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★</span>
+    <p>
+      <strong>Colegiul Național „Mihai Viteazul"</strong><br>
+      Școală candidat în rețeaua EPAS — European Parliament Ambassador Schools
+    </p>
+    <p style="margin-top:0.8rem;">
+      Implementat de Biroul de Legătură al Parlamentului European în România<br>
+      în parteneriat cu Ministerul Educației și Cercetării
+    </p>
+  </footer>
+
+</body>
+</html>
