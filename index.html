@@ -20,6 +20,117 @@
 
     html { scroll-behavior: smooth; }
 
+    /* ─── NAVBAR ────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      height: 60px;
+      background: rgba(3,6,31,0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      transition: background 0.3s;
+    }
+
+    nav.scrolled {
+      background: rgba(3,6,31,0.92);
+    }
+
+    .nav-logo {
+      font-size: 0.85rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--eu-gold);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-logo span {
+      color: var(--heading-color);
+      font-weight: 400;
+      line-height: 1.3;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 0.2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: rgba(255,255,255,0.65);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--eu-gold);
+      background: rgba(255,255,255,0.06);
+    }
+
+    /* hamburger */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+    }
+
+    .nav-toggle.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    @media (max-width: 640px) {
+      .nav-toggle { display: flex; }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 60px;
+        left: 0; right: 0;
+        flex-direction: column;
+        background: rgba(3,6,31,0.97);
+        padding: 1rem 0;
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+        gap: 0;
+      }
+
+      .nav-links.open { display: flex; }
+
+      .nav-links a {
+        padding: 0.75rem 2rem;
+        border-radius: 0;
+        width: 100%;
+      }
+    }
+
     body {
       font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
       background-image: url('parliament.jpg');
@@ -101,12 +212,17 @@
       padding: 0.35rem 1.1rem;
       border-radius: 100px;
       margin-bottom: 1.4rem;
-      transition: background 0.25s, box-shadow 0.25s;
-      cursor: default;
+      transition: background 0.3s, box-shadow 0.3s, letter-spacing 0.3s, transform 0.3s, border-color 0.3s;
+      cursor: pointer;
+      text-decoration: none;
     }
     .badge:hover {
-      background: rgba(255,204,0,0.28);
-      box-shadow: 0 0 18px rgba(255,204,0,0.35);
+      background: rgba(232,212,139,0.3);
+      box-shadow: 0 0 24px rgba(232,212,139,0.5), 0 0 60px rgba(232,212,139,0.15);
+      border-color: var(--eu-gold);
+      letter-spacing: 0.22em;
+      transform: translateY(-2px);
+      text-decoration: none;
     }
 
     .hero h1 {
@@ -168,23 +284,57 @@
       box-shadow: 0 8px 32px rgba(255,204,0,0.55);
     }
 
-    .scroll-hint {
-      position: absolute;
-      bottom: 2rem;
-      z-index: 2;
-      font-size: 0.8rem;
-      color: rgba(255,255,255,0.35);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.4rem;
+    .scroll-hint { display: none; }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(10px); }
     }
-    .scroll-hint::after {
-      content: '';
-      display: block;
-      width: 1px;
-      height: 40px;
-      background: rgba(255,255,255,0.2);
+
+    .scroll-arrow {
+      display: flex;
+      justify-content: center;
+      padding: 1.5rem 0 0.5rem;
+    }
+
+    .hero .scroll-arrow {
+      position: absolute;
+      bottom: 1.5rem;
+      left: 0;
+      right: 0;
+      z-index: 2;
+      padding: 0;
+    }
+
+    .scroll-arrow a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      animation: bounce 1.8s ease-in-out infinite;
+      transition: border-color 0.25s, color 0.25s, background 0.25s;
+    }
+
+    .scroll-arrow a:hover {
+      border-color: var(--eu-gold);
+      color: var(--eu-gold);
+      background: rgba(255,255,255,0.07);
+      animation-play-state: paused;
+    }
+
+    .scroll-arrow a svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
     }
 
     /* ─── SECTIONS ──────────────────────────────────────────── */
@@ -248,6 +398,16 @@
       border-radius: 16px;
       padding: 2.5rem 2rem;
       text-align: center;
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s, background 0.3s;
+    }
+    .about-visual:hover {
+      border-color: var(--eu-gold);
+      transform: translateY(-5px);
+      box-shadow: 0 12px 36px rgba(0,0,0,0.4), 0 0 30px rgba(232,212,139,0.15);
+      background: rgba(255,255,255,0.1);
+    }
+    .about-visual:hover p {
+      color: var(--eu-gold);
     }
 
     .eu-flag-svg {
@@ -325,6 +485,7 @@
       flex-wrap: wrap;
       gap: 1rem;
       margin-top: 2rem;
+      justify-content: center;
     }
 
     .skill-tag {
@@ -484,9 +645,61 @@
     }
 
     footer strong { color: rgba(255,255,255,0.6); }
+
+    /* ─── RESPONSIVE ────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      section { padding: 3.5rem 1.2rem; }
+
+      .hero { padding: 6rem 1.2rem 2rem; }
+
+      .activities-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .membri-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .school-name {
+        font-size: 1.1rem;
+        letter-spacing: 0.08em;
+        padding: 0.5rem 1rem;
+      }
+
+      .hero h1 {
+        font-size: clamp(1.8rem, 8vw, 2.8rem);
+      }
+
+      footer p { font-size: 0.78rem; }
+    }
+
+    @media (max-width: 480px) {
+      .badge { font-size: 0.65rem; letter-spacing: 0.1em; padding: 0.3rem 0.8rem; }
+      .stars { font-size: 1.2rem; letter-spacing: 0.25em; }
+      .cta-btn { font-size: 0.88rem; padding: 0.75rem 1.6rem; }
+      .skill-tag { font-size: 0.82rem; }
+    }
   </style>
 </head>
 <body>
+
+  <!-- NAVBAR -->
+  <nav id="navbar">
+    <a href="#" class="nav-logo">EPAS <span>CNMV<br>Turda</span></a>
+    <button class="nav-toggle" id="navToggle" aria-label="Meniu">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#despre">Despre</a></li>
+      <li><a href="#activitati">Activități</a></li>
+      <li><a href="#competente">Competențe</a></li>
+      <li><a href="#membri">Membri</a></li>
+    </ul>
+  </nav>
 
   <!-- HERO -->
   <section class="hero">
@@ -499,13 +712,17 @@
     <div class="hero-content">
       <p class="school-name">Colegiul Național „Mihai Viteazul"</p>
       <span class="stars">★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★</span>
-      <span class="badge">European Parliament Ambassador Schools</span>
+      <a class="badge" href="https://youth.europarl.europa.eu/more-information/ambassador-school.html" target="_blank" rel="noopener">European Parliament Ambassador Schools ↗</a>
       <h1>Școli <span>Ambasador</span><br>ale Parlamentului European</h1>
       <p class="subtitle">Programul EPAS — cetățeni europeni activi, informați, implicați</p>
       <a href="#despre" class="cta-btn">Descoperă programul</a>
     </div>
 
-    <div class="scroll-hint">Scroll</div>
+    <div class="scroll-arrow">
+      <a href="#despre" aria-label="Mergi la secțiunea Despre">
+        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </a>
+    </div>
   </section>
 
   <!-- DESPRE -->
@@ -539,7 +756,7 @@
           </p>
         </div>
 
-        <div class="about-visual">
+        <a class="about-visual" href="https://bucharest.europarl.europa.eu/ro" target="_blank" rel="noopener" style="display:block; text-decoration:none; transition: border-color 0.25s, transform 0.25s, box-shadow 0.25s;">
           <!-- EU Flag SVG inline -->
           <svg class="eu-flag-svg" viewBox="0 0 900 600" xmlns="http://www.w3.org/2000/svg">
             <rect width="900" height="600" fill="#003399"/>
@@ -559,9 +776,14 @@
               <polygon points="450,100 456,118 475,118 460,130 166,148 450,137 434,148 440,130 425,118 444,118" transform="rotate(330,450,300)"/>
             </g>
           </svg>
-          <p>Parlamentul European<br>Biroul de Legătură în România</p>
-        </div>
+          <p>Parlamentul European<br>Biroul de Legătură în România ↗</p>
+        </a>
       </div>
+    </div>
+    <div class="scroll-arrow">
+      <a href="#activitati" aria-label="Mergi la secțiunea Activități">
+        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </a>
     </div>
   </section>
 
@@ -573,11 +795,12 @@
       <p class="lead">Prin EPAS, școala organizează o serie de activități variate care implică întreaga comunitate școlară.</p>
 
       <div class="activities-grid">
-        <div class="activity-card">
+        <a class="activity-card" href="activitati/lectii-dezbateri.html" style="text-decoration:none; cursor:pointer;">
           <span class="activity-icon">🏛️</span>
           <h3>Lecții și dezbateri</h3>
           <p>Organizăm lecții interactive și dezbateri despre instituțiile europene și procesul decizional al UE.</p>
-        </div>
+          <span style="display:inline-block; margin-top:0.8rem; font-size:0.78rem; color:var(--eu-gold); letter-spacing:0.08em;">Citește mai mult →</span>
+        </a>
         <div class="activity-card">
           <span class="activity-icon">📰</span>
           <h3>Materiale informative</h3>
@@ -605,6 +828,11 @@
         </div>
       </div>
     </div>
+    <div class="scroll-arrow">
+      <a href="#competente" aria-label="Mergi la secțiunea Competențe">
+        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </a>
+    </div>
   </section>
 
   <!-- COMPETENȚE -->
@@ -624,6 +852,11 @@
         <span class="skill-tag">Cunoașterea instituțiilor UE</span>
         <span class="skill-tag">Responsabilitate socială</span>
       </div>
+    </div>
+    <div class="scroll-arrow">
+      <a href="#membri" aria-label="Mergi la secțiunea Membri">
+        <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+      </a>
     </div>
   </section>
 
@@ -683,5 +916,28 @@
     </p>
   </footer>
 
+  <script>
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    // Hamburger toggle
+    const toggle = document.getElementById('navToggle');
+    const links = document.getElementById('navLinks');
+    toggle.addEventListener('click', () => {
+      toggle.classList.toggle('open');
+      links.classList.toggle('open');
+    });
+
+    // Închide meniul la click pe link
+    links.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        toggle.classList.remove('open');
+        links.classList.remove('open');
+      });
+    });
+  </script>
 </body>
 </html>
