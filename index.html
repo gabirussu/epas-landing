@@ -917,6 +917,19 @@
   </footer>
 
   <script>
+    // Autoplay video
+    const video = document.querySelector('.hero-video');
+    if (video) {
+      video.muted = true;
+      const tryPlay = () => {
+        video.play().catch(() => {});
+      };
+      document.addEventListener('DOMContentLoaded', tryPlay);
+      document.addEventListener('touchstart', tryPlay, { once: true });
+      document.addEventListener('click', tryPlay, { once: true });
+      window.addEventListener('load', tryPlay);
+    }
+
     // Navbar scroll effect
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
