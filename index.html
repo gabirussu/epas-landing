@@ -704,7 +704,7 @@
   <!-- HERO -->
   <section class="hero">
     <div class="hero-bg"></div>
-    <video class="hero-video" autoplay muted loop playsinline>
+    <video class="hero-video" autoplay muted loop playsinline poster="parliament.jpg">
       <source src="flag.mp4" type="video/mp4">
     </video>
     <div class="hero-overlay"></div>
@@ -917,17 +917,24 @@
   </footer>
 
   <script>
-    // Autoplay video
+    // Autoplay video cu fallback la imagine
     const video = document.querySelector('.hero-video');
     if (video) {
       video.muted = true;
       const tryPlay = () => {
-        video.play().catch(() => {});
+        video.play().catch(() => {
+          // Dacă autoplay e blocat, afișăm imaginea de fundal
+          video.style.display = 'none';
+          document.querySelector('.hero').style.backgroundImage = "url('parliament.jpg')";
+          document.querySelector('.hero').style.backgroundSize = 'cover';
+          document.querySelector('.hero').style.backgroundPosition = 'center';
+        });
       };
-      document.addEventListener('DOMContentLoaded', tryPlay);
-      document.addEventListener('touchstart', tryPlay, { once: true });
-      document.addEventListener('click', tryPlay, { once: true });
       window.addEventListener('load', tryPlay);
+      document.addEventListener('touchstart', () => {
+        video.style.display = 'block';
+        tryPlay();
+      }, { once: true });
     }
 
     // Navbar scroll effect
