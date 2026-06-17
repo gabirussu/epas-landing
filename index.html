@@ -475,6 +475,134 @@
       color: rgba(255,255,255,0.58);
     }
 
+    .card-link {
+      display: inline-block;
+      margin-top: 0.8rem;
+      font-size: 0.78rem;
+      color: var(--eu-gold);
+      letter-spacing: 0.08em;
+      transition: letter-spacing 0.2s;
+    }
+
+    .activity-card:hover .card-link {
+      letter-spacing: 0.14em;
+    }
+
+    /* ─── LISTA ACTIVITĂȚI ──────────────────────────────────── */
+    .activitati-lista {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin: 2rem 0 2.4rem;
+      padding: 0;
+      justify-content: center;
+    }
+
+    .activitati-lista li {
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 0.6rem 1.4rem;
+      border-radius: 100px;
+      min-width: 200px;
+      max-width: 340px;
+      cursor: pointer;
+      transition: border-color 0.25s, background 0.25s, transform 0.2s;
+    }
+
+    .activitati-lista li:hover {
+      border-color: var(--eu-gold);
+      background: rgba(255,255,255,0.08);
+      transform: translateY(-2px);
+    }
+
+    /* ─── MODAL LISTA ────────────────────────────────────────── */
+    .lista-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(4px);
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    .lista-modal.open { display: flex; }
+
+    .lista-modal-box {
+      background: rgba(5,8,43,0.97);
+      border: 1px solid var(--eu-gold);
+      border-radius: 20px;
+      padding: 2.5rem 2rem;
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 16px 48px rgba(0,0,0,0.6), 0 0 40px rgba(232,212,139,0.1);
+    }
+
+    .lista-modal-close {
+      position: absolute;
+      top: 0.8rem; right: 1rem;
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.5);
+      font-size: 1.6rem;
+      cursor: pointer;
+      line-height: 1;
+      transition: color 0.2s;
+    }
+
+    .lista-modal-close:hover { color: var(--eu-gold); }
+
+    .lista-modal-icon {
+      font-size: 2.4rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .lista-modal-box h3 {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--heading-color);
+      margin-bottom: 0.8rem;
+    }
+
+    .lista-modal-box p {
+      font-size: 0.95rem;
+      color: rgba(245,230,200,0.78);
+      line-height: 1.7;
+    }
+
+    .lista-icon {
+      font-size: 1.4rem;
+      flex-shrink: 0;
+      margin-top: 0.1rem;
+    }
+
+    .lista-text {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .lista-text strong {
+      color: var(--white);
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .lista-text span {
+      color: rgba(255,255,255,0.55);
+      font-size: 0.82rem;
+      line-height: 1.5;
+    }
+
+
     /* ─── COMPETENȚE ────────────────────────────────────────── */
     #competente {
       background: rgba(5,8,43,0.75);
@@ -794,38 +922,82 @@
       <h2>Activitățile programului</h2>
       <p class="lead">Prin EPAS, școala organizează o serie de activități variate care implică întreaga comunitate școlară.</p>
 
+      <!-- Lista activități fără pagini proprii -->
+      <ul class="activitati-lista">
+        <li onclick="deschideModal('🏛️', 'Lecții și dezbateri', 'Organizăm lecții interactive și dezbateri despre instituțiile europene și procesul decizional al UE.')">
+          <span class="lista-icon">🏛️</span>
+          <div class="lista-text"><strong>Lecții și dezbateri</strong></div>
+        </li>
+        <li onclick="deschideModal('📰', 'Materiale informative', 'Realizăm materiale educaționale despre valorile și funcționarea Uniunii Europene.')">
+          <span class="lista-icon">📰</span>
+          <div class="lista-text"><strong>Materiale informative</strong></div>
+        </li>
+        <li onclick="deschideModal('⭐', 'Ziua Europei', 'Marcăm anual Ziua Europei (9 mai) prin evenimente dedicate cetățeniei europene.')">
+          <span class="lista-icon">⭐</span>
+          <div class="lista-text"><strong>Ziua Europei</strong></div>
+        </li>
+        <li onclick="deschideModal('🎭', 'Simulări și jocuri de rol', 'Elevii participă la simulări ale procesului decizional european — sesiuni de Parlamentul European.')">
+          <span class="lista-icon">🎭</span>
+          <div class="lista-text"><strong>Simulări și jocuri de rol</strong></div>
+        </li>
+        <li onclick="deschideModal('📍', 'Punct de informare european', 'Școala amenajează un spațiu dedicat informației europene accesibil tuturor elevilor.')">
+          <span class="lista-icon">📍</span>
+          <div class="lista-text"><strong>Punct de informare european</strong></div>
+        </li>
+        <li onclick="deschideModal('🤝', 'Colaborare internațională', 'Colaborăm cu alte școli din rețeaua EPAS din toată Europa pentru schimburi de bune practici.')">
+          <span class="lista-icon">🤝</span>
+          <div class="lista-text"><strong>Colaborare internațională</strong></div>
+        </li>
+      </ul>
+
+      <!-- Modal -->
+      <div class="lista-modal" id="listaModal" onclick="if(event.target===this) inchideModal()">
+        <div class="lista-modal-box">
+          <button class="lista-modal-close" onclick="inchideModal()">×</button>
+          <div class="lista-modal-icon" id="modalIcon"></div>
+          <h3 id="modalTitlu"></h3>
+          <p id="modalText"></p>
+        </div>
+      </div>
+
+      <!-- 6 carduri cu link -->
       <div class="activities-grid">
-        <a class="activity-card" href="activitati/lectii-dezbateri.html" style="text-decoration:none; cursor:pointer;">
-          <span class="activity-icon">🏛️</span>
-          <h3>Lecții și dezbateri</h3>
-          <p>Organizăm lecții interactive și dezbateri despre instituțiile europene și procesul decizional al UE.</p>
-          <span style="display:inline-block; margin-top:0.8rem; font-size:0.78rem; color:var(--eu-gold); letter-spacing:0.08em;">Citește mai mult →</span>
+        <a class="activity-card" href="activitati/lectii-dezbateri.html" style="text-decoration:none;">
+          <span class="activity-icon">🚀</span>
+          <h3>Startul proiectului</h3>
+          <p>Prima activitate EPAS — cetățeni europeni activi, informați, implicați.</p>
+          <span class="card-link">Citește mai mult →</span>
         </a>
-        <div class="activity-card">
-          <span class="activity-icon">📰</span>
-          <h3>Materiale informative</h3>
-          <p>Realizăm materiale educaționale despre valorile și funcționarea Uniunii Europene.</p>
-        </div>
-        <div class="activity-card">
-          <span class="activity-icon">🇪🇺</span>
-          <h3>Ziua Europei</h3>
-          <p>Marcăm anual Ziua Europei (9 mai) prin evenimente dedicate cetățeniei europene.</p>
-        </div>
-        <div class="activity-card">
-          <span class="activity-icon">🎭</span>
-          <h3>Simulări și jocuri de rol</h3>
-          <p>Elevii participă la simulări ale procesului decizional european — sesiuni de Parlamentul European.</p>
-        </div>
-        <div class="activity-card">
-          <span class="activity-icon">📍</span>
-          <h3>Punct de informare european</h3>
-          <p>Școala amenajează un spațiu dedicat informației europene accesibil tuturor elevilor.</p>
-        </div>
-        <div class="activity-card">
+        <a class="activity-card" href="activitati/cat1/index.html" style="text-decoration:none;">
           <span class="activity-icon">🤝</span>
-          <h3>Colaborare internațională</h3>
-          <p>Colaborăm cu alte școli din rețeaua EPAS din toată Europa pentru schimburi de bune practici.</p>
-        </div>
+          <h3>Formarea echipei de ambasadori</h3>
+          <p>Prima întâlnire oficială — roluri, obiective și manualul programului EPAS.</p>
+          <span class="card-link">Citește mai mult →</span>
+        </a>
+        <a class="activity-card" href="activitati/cat2/index.html" style="text-decoration:none;">
+          <span class="activity-icon">🇪🇺</span>
+          <h3>Ce face UE pentru mine?</h3>
+          <p>Cetățenie europeană, Erasmus+, DiscoverEU și politici europene cu impact zilnic.</p>
+          <span class="card-link">Citește mai mult →</span>
+        </a>
+        <a class="activity-card" href="activitati/cat3/index.html" style="text-decoration:none;">
+          <span class="activity-icon">🏛️</span>
+          <h3>Cum funcționează Parlamentul European</h3>
+          <p>Dialog online cu europarlamentarul Vasile Dâncu despre democrație și instituții europene.</p>
+          <span class="card-link">Citește mai mult →</span>
+        </a>
+        <a class="activity-card" href="activitati/cat4/index.html" style="text-decoration:none;">
+          <span class="activity-icon">💶</span>
+          <h3>Bugetul pe termen lung al UE</h3>
+          <p>Cum sunt planificate și utilizate fondurile europene pentru 2028–2034.</p>
+          <span class="card-link">Citește mai mult →</span>
+        </a>
+        <a class="activity-card" href="activitati/cat5/index.html" style="text-decoration:none;">
+          <span class="activity-icon">⭐</span>
+          <h3>Ziua Europei</h3>
+          <p>Vânătoare de comori europeană și dialog cu invitați speciali — 8 mai 2026.</p>
+          <span class="card-link">Citește mai mult →</span>
+        </a>
       </div>
     </div>
     <div class="scroll-arrow">
@@ -957,6 +1129,24 @@
         toggle.classList.remove('open');
         links.classList.remove('open');
       });
+    });
+
+    // Modal listă activități
+    function deschideModal(icon, titlu, text) {
+      document.getElementById('modalIcon').textContent = icon;
+      document.getElementById('modalTitlu').textContent = titlu;
+      document.getElementById('modalText').textContent = text;
+      document.getElementById('listaModal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function inchideModal() {
+      document.getElementById('listaModal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') inchideModal();
     });
   </script>
 </body>

@@ -186,10 +186,15 @@
     }
 
     .info-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
       gap: 1.4rem;
       margin-top: 2rem;
+    }
+
+    .info-card {
+      flex: 0 1 240px;
     }
 
     .info-card {
