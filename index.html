@@ -509,7 +509,7 @@
       border-radius: 100px;
       min-width: 200px;
       max-width: 340px;
-      cursor: pointer;
+      cursor: default;
       transition: border-color 0.25s, background 0.25s, transform 0.2s;
     }
 
@@ -519,64 +519,6 @@
       transform: translateY(-2px);
     }
 
-    /* ─── MODAL LISTA ────────────────────────────────────────── */
-    .lista-modal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 200;
-      background: rgba(0,0,0,0.6);
-      backdrop-filter: blur(4px);
-      align-items: center;
-      justify-content: center;
-      padding: 1.5rem;
-    }
-
-    .lista-modal.open { display: flex; }
-
-    .lista-modal-box {
-      background: rgba(5,8,43,0.97);
-      border: 1px solid var(--eu-gold);
-      border-radius: 20px;
-      padding: 2.5rem 2rem;
-      max-width: 420px;
-      width: 100%;
-      text-align: center;
-      position: relative;
-      box-shadow: 0 16px 48px rgba(0,0,0,0.6), 0 0 40px rgba(232,212,139,0.1);
-    }
-
-    .lista-modal-close {
-      position: absolute;
-      top: 0.8rem; right: 1rem;
-      background: none;
-      border: none;
-      color: rgba(255,255,255,0.5);
-      font-size: 1.6rem;
-      cursor: pointer;
-      line-height: 1;
-      transition: color 0.2s;
-    }
-
-    .lista-modal-close:hover { color: var(--eu-gold); }
-
-    .lista-modal-icon {
-      font-size: 2.4rem;
-      margin-bottom: 0.8rem;
-    }
-
-    .lista-modal-box h3 {
-      font-size: 1.2rem;
-      font-weight: 800;
-      color: var(--heading-color);
-      margin-bottom: 0.8rem;
-    }
-
-    .lista-modal-box p {
-      font-size: 0.95rem;
-      color: rgba(245,230,200,0.78);
-      line-height: 1.7;
-    }
 
     .lista-icon {
       font-size: 1.4rem;
@@ -592,14 +534,14 @@
 
     .lista-text strong {
       color: var(--white);
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       font-weight: 700;
     }
 
     .lista-text span {
-      color: rgba(255,255,255,0.55);
-      font-size: 0.82rem;
-      line-height: 1.5;
+      color: rgba(255,255,255,0.5);
+      font-size: 0.72rem;
+      line-height: 1.4;
     }
 
 
@@ -924,41 +866,49 @@
 
       <!-- Lista activități fără pagini proprii -->
       <ul class="activitati-lista">
-        <li onclick="deschideModal('🏛️', 'Lecții și dezbateri', 'Organizăm lecții interactive și dezbateri despre instituțiile europene și procesul decizional al UE.')">
+        <li>
           <span class="lista-icon">🏛️</span>
-          <div class="lista-text"><strong>Lecții și dezbateri</strong></div>
+          <div class="lista-text">
+            <strong>Lecții și dezbateri</strong>
+            <span>Organizăm lecții interactive și dezbateri despre instituțiile europene și procesul decizional al UE.</span>
+          </div>
         </li>
-        <li onclick="deschideModal('📰', 'Materiale informative', 'Realizăm materiale educaționale despre valorile și funcționarea Uniunii Europene.')">
+        <li>
           <span class="lista-icon">📰</span>
-          <div class="lista-text"><strong>Materiale informative</strong></div>
+          <div class="lista-text">
+            <strong>Materiale informative</strong>
+            <span>Realizăm materiale educaționale despre valorile și funcționarea Uniunii Europene.</span>
+          </div>
         </li>
-        <li onclick="deschideModal('⭐', 'Ziua Europei', 'Marcăm anual Ziua Europei (9 mai) prin evenimente dedicate cetățeniei europene.')">
+        <li>
           <span class="lista-icon">⭐</span>
-          <div class="lista-text"><strong>Ziua Europei</strong></div>
+          <div class="lista-text">
+            <strong>Ziua Europei</strong>
+            <span>Marcăm anual Ziua Europei (9 mai) prin evenimente dedicate cetățeniei europene.</span>
+          </div>
         </li>
-        <li onclick="deschideModal('🎭', 'Simulări și jocuri de rol', 'Elevii participă la simulări ale procesului decizional european — sesiuni de Parlamentul European.')">
+        <li>
           <span class="lista-icon">🎭</span>
-          <div class="lista-text"><strong>Simulări și jocuri de rol</strong></div>
+          <div class="lista-text">
+            <strong>Simulări și jocuri de rol</strong>
+            <span>Elevii participă la simulări ale procesului decizional european — sesiuni de Parlamentul European.</span>
+          </div>
         </li>
-        <li onclick="deschideModal('📍', 'Punct de informare european', 'Școala amenajează un spațiu dedicat informației europene accesibil tuturor elevilor.')">
+        <li>
           <span class="lista-icon">📍</span>
-          <div class="lista-text"><strong>Punct de informare european</strong></div>
+          <div class="lista-text">
+            <strong>Punct de informare european</strong>
+            <span>Școala amenajează un spațiu dedicat informației europene accesibil tuturor elevilor.</span>
+          </div>
         </li>
-        <li onclick="deschideModal('🤝', 'Colaborare internațională', 'Colaborăm cu alte școli din rețeaua EPAS din toată Europa pentru schimburi de bune practici.')">
+        <li>
           <span class="lista-icon">🤝</span>
-          <div class="lista-text"><strong>Colaborare internațională</strong></div>
+          <div class="lista-text">
+            <strong>Colaborare internațională</strong>
+            <span>Colaborăm cu alte școli din rețeaua EPAS din toată Europa pentru schimburi de bune practici.</span>
+          </div>
         </li>
       </ul>
-
-      <!-- Modal -->
-      <div class="lista-modal" id="listaModal" onclick="if(event.target===this) inchideModal()">
-        <div class="lista-modal-box">
-          <button class="lista-modal-close" onclick="inchideModal()">×</button>
-          <div class="lista-modal-icon" id="modalIcon"></div>
-          <h3 id="modalTitlu"></h3>
-          <p id="modalText"></p>
-        </div>
-      </div>
 
       <!-- 6 carduri cu link -->
       <div class="activities-grid">
@@ -1149,23 +1099,6 @@
       });
     });
 
-    // Modal listă activități
-    function deschideModal(icon, titlu, text) {
-      document.getElementById('modalIcon').textContent = icon;
-      document.getElementById('modalTitlu').textContent = titlu;
-      document.getElementById('modalText').textContent = text;
-      document.getElementById('listaModal').classList.add('open');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function inchideModal() {
-      document.getElementById('listaModal').classList.remove('open');
-      document.body.style.overflow = '';
-    }
-
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') inchideModal();
-    });
   </script>
 </body>
 </html>
