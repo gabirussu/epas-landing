@@ -23,7 +23,7 @@
     /* ─── NAVBAR ────────────────────────────────────────────── */
     nav {
       position: fixed;
-      top: 0; left: 0; right: 0;
+      top: 36px; left: 0; right: 0;
       z-index: 100;
       display: flex;
       align-items: center;
@@ -851,8 +851,52 @@
 </head>
 <body>
 
+  <!-- ANNOUNCEMENT BANNER -->
+  <div id="announcement-banner" style="
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 200;
+    background: linear-gradient(90deg, #E8D48B 0%, #f5e9a0 50%, #E8D48B 100%);
+    color: #001f6b;
+    text-align: center;
+    padding: 0.55rem 3rem;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  ">
+    <span>📢 Recrutăm Ambasadori Juniori EPAS — află cum poți face parte din echipă!</span>
+    <a href="recrutare.html" style="
+      background: #001f6b;
+      color: #E8D48B;
+      padding: 0.3rem 0.9rem;
+      border-radius: 4px;
+      text-decoration: none;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      white-space: nowrap;
+      transition: background 0.2s;
+    ">Află mai mult →</a>
+    <button onclick="document.getElementById('announcement-banner').style.display='none'; document.getElementById('navbar').style.top='0'" style="
+      position: absolute;
+      right: 1rem;
+      background: none;
+      border: none;
+      color: #001f6b;
+      font-size: 1.1rem;
+      cursor: pointer;
+      opacity: 0.6;
+      line-height: 1;
+      padding: 0.2rem 0.4rem;
+    ">✕</button>
+  </div>
+
   <!-- NAVBAR -->
-  <nav id="navbar">
+  <nav id="navbar" style="top: 36px;">
     <a href="#" class="nav-logo">EPAS <span>CNMV<br>Turda</span></a>
     <button class="nav-toggle" id="navToggle" aria-label="Meniu">
       <span></span><span></span><span></span>
