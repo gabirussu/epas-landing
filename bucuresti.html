@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ceremonia de la București — EPAS CNMV Turda</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --eu-blue: #003399;
+      --eu-blue-dark: #001f6b;
+      --eu-gold: #E8D48B;
+      --eu-gold-dim: #d4bc6e;
+      --white: #F5E6C8;
+      --heading-color: #C8DEFF;
+      --gray-light: rgba(255,255,255,0.08);
+      --gray-border: rgba(255,255,255,0.15);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+      background-image: url('parliament.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: var(--white);
+      line-height: 1.7;
+    }
+
+    /* ─── NAVBAR ─────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      height: 60px;
+      background: rgba(3,6,31,0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      transition: background 0.3s;
+    }
+
+    nav.scrolled { background: rgba(3,6,31,0.92); }
+
+    .nav-logo {
+      font-size: 0.85rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--eu-gold);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .nav-logo span {
+      color: var(--heading-color);
+      font-weight: 400;
+      line-height: 1.3;
+    }
+
+    .nav-back {
+      color: rgba(255,255,255,0.65);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .nav-back:hover {
+      color: var(--eu-gold);
+      background: rgba(255,255,255,0.06);
+    }
+
+    /* ─── HERO ──────────────────────────────────────────────── */
+    .page-hero {
+      padding: 120px 2rem 70px;
+      text-align: center;
+      background: linear-gradient(180deg, rgba(0,31,107,0.75) 0%, rgba(3,6,31,0.5) 100%);
+    }
+
+    .page-hero .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(232,212,139,0.15);
+      border: 1px solid rgba(232,212,139,0.35);
+      color: var(--eu-gold);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.35rem 1rem;
+      border-radius: 20px;
+      margin-bottom: 1.5rem;
+    }
+
+    .page-hero h1 {
+      font-size: clamp(1.8rem, 4.5vw, 3rem);
+      font-weight: 800;
+      color: var(--heading-color);
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .page-hero h1 span { color: var(--eu-gold); }
+
+    .page-hero .date-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: rgba(245,230,200,0.65);
+      font-size: 0.85rem;
+      margin-top: 0.5rem;
+    }
+
+    /* ─── CONTENT ───────────────────────────────────────────── */
+    .content-wrap {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 0 2rem 6rem;
+    }
+
+    .text-card {
+      background: rgba(3,6,31,0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--gray-border);
+      border-radius: 16px;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .text-card p {
+      color: rgba(245,230,200,0.88);
+      font-size: 1rem;
+      line-height: 1.85;
+      margin-bottom: 1rem;
+    }
+
+    .text-card p:last-child { margin-bottom: 0; }
+
+    /* ─── GALLERY ────────────────────────────────────────────── */
+    .gallery-title {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--eu-gold);
+      margin-bottom: 1.2rem;
+      padding-left: 0.25rem;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .gallery img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 1px solid var(--gray-border);
+      display: block;
+      background: rgba(3,6,31,0.5);
+    }
+
+    .gallery img.placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(3,6,31,0.6);
+      border: 1px dashed rgba(232,212,139,0.25);
+    }
+
+    /* placeholder vizual pentru poze lipsă */
+    .img-placeholder {
+      width: 100%;
+      height: 280px;
+      border-radius: 12px;
+      border: 1px dashed rgba(232,212,139,0.25);
+      background: rgba(3,6,31,0.5);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      color: rgba(232,212,139,0.35);
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+    }
+
+    .img-placeholder span { font-size: 2rem; }
+
+    /* ─── FOOTER ─────────────────────────────────────────────── */
+    footer {
+      background: rgba(3,6,31,0.9);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.8;
+    }
+
+    footer .stars-sm {
+      display: block;
+      color: var(--eu-gold);
+      letter-spacing: 0.3em;
+      font-size: 0.65rem;
+      margin-bottom: 0.5rem;
+    }
+
+    @media (max-width: 640px) {
+      .page-hero { padding: 100px 1.5rem 50px; }
+      .content-wrap { padding: 0 1.25rem 4rem; }
+      .text-card { padding: 1.75rem 1.5rem; }
+      .gallery { grid-template-columns: 1fr; }
+      .img-placeholder { height: 220px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav id="navbar">
+    <a href="index.html" class="nav-logo">EPAS <span>CNMV<br>Turda</span></a>
+    <a href="index.html#activitati" class="nav-back">← Înapoi</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="page-hero">
+    <div class="badge">🏆 1 octombrie 2026 · București</div>
+    <h1>E oficial! Am devenit <span>Școală-Ambasador</span><br>a Parlamentului European!</h1>
+    <div class="date-pill">📍 Ceremonia de decernare a titlului — anul școlar 2025–2026</div>
+  </section>
+
+  <!-- CONTENT -->
+  <div class="content-wrap">
+
+    <!-- Text -->
+    <div class="text-card">
+      <p>La 1 octombrie 2026, echipa Colegiului Național „Mihai Viteazul" Turda a participat, la București, la ceremonia de decernare a titlului pentru anul școlar 2025–2026.</p>
+      <p>Colegiul nostru a fost reprezentat de directorul prof. Potora Florin, coordonatorul proiectului EPAS, prof. Incze Daniela, și de elevele Mînican Iulia și Potora Alecsia, Ambasadori Juniori, care au prezentat activitățile și experiențele echipei noastre din cadrul programului.</p>
+      <p>Suntem bucuroși de această recunoaștere, care încununează implicarea elevilor și profesorilor noștri în promovarea valorilor europene, a democrației și a participării active a tinerilor.</p>
+      <p>Continuăm cu entuziasm să aducem valorile europene mai aproape de comunitatea noastră școlară!</p>
+    </div>
+
+    <!-- Galerie foto -->
+    <p class="gallery-title">📷 Momente din ceremonie</p>
+    <div class="gallery">
+      <div class="img-placeholder"><span>🖼️</span>Poză în curând</div>
+      <div class="img-placeholder"><span>🖼️</span>Poză în curând</div>
+      <div class="img-placeholder"><span>🖼️</span>Poză în curând</div>
+      <div class="img-placeholder"><span>🖼️</span>Poză în curând</div>
+    </div>
+
+  </div>
+
+  <footer>
+    <span class="stars-sm">★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★ ★</span>
+    <p><strong>Colegiul Național „Mihai Viteazul" Turda</strong><br>
+    Școală Ambasador în rețeaua EPAS — European Parliament Ambassador Schools</p>
+  </footer>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+    });
+  </script>
+
+</body>
+</html>
